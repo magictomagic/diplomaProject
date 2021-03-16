@@ -10,7 +10,7 @@ raw_comments_db = "tmp1"
 pool = redis.ConnectionPool(host='localhost', port=6379, decode_responses=True)
 r = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
-view_judge = []
+# view_judge = []
 keys = ['comment_text', 'be_contents', 'like_count', 'reply_count', 'be_co_retweet', 'be_co_comments', 'be_co_like']
 
 
@@ -33,6 +33,9 @@ class IterateComments:
 class ProjectComments:
     """
     负责抽取文本特征
+    注意：官方文档
+    https://ltp.readthedocs.io/zh_CN/latest/
+    有些是”栏得啊毛“的
     """
     def __init__(self, dimension_threshold_role=5, dimension_threshold_dr=8, dimension_threshold_ner=4):
         self.ltp = LTP()
@@ -50,16 +53,23 @@ class ProjectComments:
 
     def iter_project_quad(self, comment_text, be_contents, like_count, reply_count, be_co_retweet, be_co_comments,
                           be_co_like):
+        if len(comment_text) <= 1:
+            comment_text = "空"
+        if len(be_contents) <= 1:
+            be_contents = "废"
         splited = comment_text.split('|')
+        # print(splited)
+        # if splited == None:
+        #     print("asdasdasdasdadasdasd")
         seg, hidden = self.ltp.seg(splited)
         be_contents_split = be_contents.split('|')
         be_contents_seg, be_contents_hidden = self.ltp.seg(be_contents_split)
-        return comment_text, self.part_of_speech(hidden), self.semantic_role(hidden), \
-               self.semantic_dependency_relations(hidden), self.semantic_relationship(seg, hidden, be_contents_seg,
-                                                                                      be_contents_hidden), self.heatage(
+        return comment_text, self._part_of_speech(hidden), self._semantic_role(hidden), \
+               self._semantic_dependency_relations(hidden), self._semantic_relationship(seg, hidden, be_contents_seg,
+                                                                                        be_contents_hidden), self._heatage(
             like_count, reply_count, be_co_retweet, be_co_comments, be_co_like)
 
-    def part_of_speech(self, hidden):
+    def _part_of_speech(self, hidden):
         pos = self.ltp.pos(hidden)
         tag_list = [0] * 30
         for sub_vector in pos:
@@ -67,7 +77,7 @@ class ProjectComments:
                 tag_list[self.switch.get(tag, 29)] += 1
         return tag_list
 
-    def semantic_role(self, hidden):
+    def _semantic_role(self, hidden):
         """
         对于句子嵌套结构的复杂度的要求大于句子命名个体的复杂度
         定义每个句子的语义结构复杂度为 ∏ log2(Ni+1)
@@ -87,7 +97,7 @@ class ProjectComments:
             index += 1
         return role_list
 
-    def semantic_dependency_relations(self, hidden):
+    def _semantic_dependency_relations(self, hidden):
         """
         这官方文档像放屁一样：源码里参数都变了，文档里示例还是老的
         得到句子语义依存分析后的树的深度(depth)和每层的宽度(width)
@@ -115,7 +125,7 @@ class ProjectComments:
             index += 1
         return dr_list
 
-    def semantic_relationship(self, seg, hidden, be_seg, be_contents_hidden):
+    def _semantic_relationship(self, seg, hidden, be_seg, be_contents_hidden):
         """
         根据命名实体识别，分别识别评论文本与被评论对象的 NE，根据其相似度分析评论的相关性
         就怕水军在评论时搞几个被评论对象中的 NE 来骗，来偷袭
@@ -145,8 +155,11 @@ class ProjectComments:
         # print(str(comments_ne) + " || " + str(be_comments_ne))
         return relation_list
 
-    def heatage(self, like_count, reply_count, be_co_retweet, be_co_comments, be_co_like):
-        return [like_count, reply_count, be_co_retweet, be_co_comments, be_co_like]
+    def _heatage(self, like_count, reply_count, be_co_retweet, be_co_comments, be_co_like):
+        # print("like_count: " + str(like_count) + " | reply_count: " + str(reply_count) + " | be_co_retweet: " + str(be_co_retweet) +
+        #       " | be_co_comments: " + str(be_co_comments) + " | be_co_like: " + str(be_co_like))
+        ht = list(map(int, [like_count, reply_count, be_co_retweet, be_co_comments, be_co_like]))
+        return ht
 
 
 if __name__ == '__main__':
