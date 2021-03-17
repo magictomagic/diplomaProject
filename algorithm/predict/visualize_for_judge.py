@@ -53,13 +53,24 @@ class CommentsFilter:
         print(self.id_judge)
         print(jl)
 
+    def strategy(self):
+        """
+        过滤链
+        :return: {id_judge: flag_killer}
+        """
+        pass
+
     def role(self):
         """
         第一层过滤：等级分为 1 - 6，1 表示确定是要的，6 表示确定不要
         :return:
         """
-
-
+        role_v = self.predicted[1]
+        index = 0
+        for group in role_v:
+            self.flag_killer[index] = role_delete.get(group, 8964)
+            index += 1
+        print(self.flag_killer)
 
     def dr(self):
         pass
@@ -70,15 +81,15 @@ class CommentsFilter:
     def part(self):
         pass
 
-    def end(self):
-        """
-        需要拿到评论的ID，在这里可以只传flag_killer，到父级再组合（只要确保是继承自同一块内存中的字符串即可）
-        :return: {"id|id|id": flag_i, ...}
-        """
+    # def end(self):
+    #     """
+    #     需要拿到评论的ID，在这里可以只传flag_killer，到父级再组合（只要确保是继承自同一块内存中的字符串即可）
+    #     :return: {"id|id|id": flag_i, ...}
+    #     """
 
 
 if __name__ == '__main__':
     # print(role_delete.get(2, 100))
-    eyes = Visualization(predict_db)
-    eyes.save_to_csv()
+    eyes = CommentsFilter(predict_db)
+    eyes.role()
 
