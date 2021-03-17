@@ -1,17 +1,12 @@
 import numpy as np
 from ltp import LTP
-import redis
 import json
 from math import log2
 from operator import itemgetter
+import sys
+sys.path.append("..")
+from config import *
 
-raw_comments_db = "tmp1"
-
-pool = redis.ConnectionPool(host='localhost', port=6379, decode_responses=True)
-r = redis.Redis(host='localhost', port=6379, decode_responses=True)
-
-# view_judge = []
-keys = ['comment_text', 'be_contents', 'like_count', 'reply_count', 'be_co_retweet', 'be_co_comments', 'be_co_like']
 
 
 class IterateComments:
@@ -38,7 +33,6 @@ class ProjectComments:
     https://ltp.readthedocs.io/zh_CN/latest/
     有些是”栏得啊毛“的
     """
-
     def __init__(self, dimension_threshold_role=5, dimension_threshold_dr=8, dimension_threshold_ner=4):
         self.ltp = LTP()
         """
@@ -48,7 +42,6 @@ class ProjectComments:
         self.switch = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'g': 5, 'h': 6, 'i': 7, 'j': 8, 'k': 9, 'm': 10, 'n': 11,
                        'nd': 12, 'nh': 13, 'ni': 14, 'nl': 15, 'ns': 16, 'nt': 17, 'nz': 18, 'o': 19, 'p': 20, 'q': 21,
                        'r': 22, 'u': 23, 'v': 24, 'wp': 25, 'ws': 26, 'x': 27, 'z': 28}
-
         self.dimension_threshold_role = dimension_threshold_role
         self.dimension_threshold_dr = dimension_threshold_dr
         self.dimension_threshold_ner = dimension_threshold_ner
@@ -60,9 +53,6 @@ class ProjectComments:
         if len(be_contents) <= 1:
             be_contents = "废"
         splited = comment_text.split('|')
-        # print(splited)
-        # if splited == None:
-        #     print("asdasdasdasdadasdasd")
         seg, hidden = self.ltp.seg(splited)
         be_contents_split = be_contents.split('|')
         be_contents_seg, be_contents_hidden = self.ltp.seg(be_contents_split)

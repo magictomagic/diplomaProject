@@ -1,21 +1,6 @@
-import numpy as np
-from operator import itemgetter
 from layer1_vectorize_context import *
 from sklearn.cluster import Birch
-from sklearn.cluster import DBSCAN
-
-
-def cluster_birch(X, n_clusters=None):
-    brc = Birch(n_clusters=n_clusters)
-    brc.fit(X)
-    return brc.fit_predict([[0.2, 1], [0.2, -1]])
-    # return brc.predict(X)
-
-
-def cluster_train_model(cluster_algorithm, X, n_clusters=None):
-    train = cluster_algorithm(n_clusters=n_clusters)
-    train.fit(X)
-    return train
+import joblib
 
 
 class ClusterComments:
@@ -41,12 +26,11 @@ class ClusterComments:
             self._to_array(vectorized_context[:, 4]))\
             # , self._train_heatage(self._to_array(vectorized_context[:, 5]))
 
-    def predict(self, vectorized_context):
-        return self._predict_part(self._to_array(vectorized_context[:, 1])), self._predict_role(
-            self._to_array(vectorized_context[:, 2])), self._predict_dr(
-            self._to_array(vectorized_context[:, 3])), self._predict_rs(
-            self._to_array(vectorized_context[:, 4]))\
-            # , self._predict_heatage(self._to_array(vectorized_context[:, 5]))
+    def persistent_storage(self):
+        joblib.dump(self.part_model, '../part_model.m')
+        joblib.dump(self.role_model, '../role_model.m')
+        joblib.dump(self.dr_model, '../dr_model.m')
+        joblib.dump(self.rs_model, '../rs_model.m')
 
     def _to_array(self, X):
         npa = []
@@ -55,28 +39,20 @@ class ClusterComments:
         return npa
 
     def _train_part(self, X):
-        # np_X = self.to_array(X)
         self.part_model = Birch(n_clusters=self.part_cluster)
         self.part_model.fit(X)
-        # return part_model
 
     def _train_role(self, X):
-        # np_X = self.to_array(X)
         self.role_model = Birch(n_clusters=self.role_cluster)
         self.role_model.fit(X)
-        # return role_model
 
     def _train_dr(self, X):
-        # np_X = self.to_array(X)
         self.dr_model = Birch(n_clusters=self.dr_cluster)
         self.dr_model.fit(X)
-        # return dr_model
 
     def _train_rs(self, X):
-        # np_X = self.to_array(X)
         self.rs_model = Birch(n_clusters=self.rs_cluster)
         self.rs_model.fit(X)
-        # return rs_model
 
     def _train_heatage(self, X):
         pass
@@ -84,21 +60,6 @@ class ClusterComments:
         # heatage_model = Birch(n_clusters=self.heatage_cluster)
         # heatage_model.fit(np_X)
         # return heatage_model
-
-    # def _predict_part(self, y):
-    #     return self.part_model.predict(y)
-    #
-    # def _predict_role(self, y):
-    #     return self.role_model.predict(y)
-    #
-    # def _predict_dr(self, y):
-    #     return self.dr_model.predict(y)
-    #
-    # def _predict_rs(self, y):
-    #     return self.rs_model.predict(y)
-    #
-    # def _predict_heatage(self, y):
-    #     pass
 
 
 if __name__ == '__main__':
