@@ -1,24 +1,11 @@
-import numpy as np
-from operator import itemgetter
-from layer1_vectorize_context import *
 from sklearn.cluster import Birch
-from sklearn.cluster import DBSCAN
+import joblib
+import sys
+sys.path.append("..")
+from layer1_vectorize_context import *
 
 
-def cluster_birch(X, n_clusters=None):
-    brc = Birch(n_clusters=n_clusters)
-    brc.fit(X)
-    return brc.fit_predict([[0.2, 1], [0.2, -1]])
-    # return brc.predict(X)
-
-
-def cluster_train_model(cluster_algorithm, X, n_clusters=None):
-    train = cluster_algorithm(n_clusters=n_clusters)
-    train.fit(X)
-    return train
-
-
-class ClusterComments:
+class ScatterComments:
     """
     including train and predict models
     """
@@ -29,17 +16,10 @@ class ClusterComments:
         self.rs_cluster = rs_cluster
         self.heatage_cluster = heatage_cluster
 
-        self.part_model = None
-        self.role_model = None
-        self.dr_model = None
-        self.rs_model = None
-
-    def train(self, vectorized_context):
-        return self._train_part(self._to_array(vectorized_context[:, 1])), self._train_role(
-            self._to_array(vectorized_context[:, 2])), self._train_dr(
-            self._to_array(vectorized_context[:, 3])), self._train_rs(
-            self._to_array(vectorized_context[:, 4]))\
-            # , self._train_heatage(self._to_array(vectorized_context[:, 5]))
+        self.part_model = joblib.load('../part_model.m')
+        self.role_model = joblib.load('../role_model.m')
+        self.dr_model = joblib.load('../dr_model.m')
+        self.rs_model = joblib.load('../rs_model.m')
 
     def predict(self, vectorized_context):
         return self._predict_part(self._to_array(vectorized_context[:, 1])), self._predict_role(
@@ -53,37 +33,6 @@ class ClusterComments:
         for v in X:
             npa.append(np.array(v))
         return npa
-
-    def _train_part(self, X):
-        # np_X = self.to_array(X)
-        self.part_model = Birch(n_clusters=self.part_cluster)
-        self.part_model.fit(X)
-        # return part_model
-
-    def _train_role(self, X):
-        # np_X = self.to_array(X)
-        self.role_model = Birch(n_clusters=self.role_cluster)
-        self.role_model.fit(X)
-        # return role_model
-
-    def _train_dr(self, X):
-        # np_X = self.to_array(X)
-        self.dr_model = Birch(n_clusters=self.dr_cluster)
-        self.dr_model.fit(X)
-        # return dr_model
-
-    def _train_rs(self, X):
-        # np_X = self.to_array(X)
-        self.rs_model = Birch(n_clusters=self.rs_cluster)
-        self.rs_model.fit(X)
-        # return rs_model
-
-    def _train_heatage(self, X):
-        pass
-        # np_X = self.to_array(X)
-        # heatage_model = Birch(n_clusters=self.heatage_cluster)
-        # heatage_model.fit(np_X)
-        # return heatage_model
 
     def _predict_part(self, y):
         return self.part_model.predict(y)
@@ -102,21 +51,7 @@ class ClusterComments:
 
 
 if __name__ == '__main__':
-    raw_comments = r.hgetall(raw_comments_db)
-    vectorize_context = ProjectComments(6, 8, 4)
-    iter_comment = IterateComments(raw_comments)
-
-    while True:
-        misc = iter_comment.iter_loads_comments()
-        if not isinstance(misc, bool):
-            c = vectorize_context.iter_project_quad(*itemgetter(*keys)(misc))
-            view_judge.append(c)
-        else:
-            break
-
-    to_train = np.array(view_judge)
-    cluster_context = ClusterComments()
-    cluster_context.train(to_train)
-    to_predict = to_train
-
-    print(cluster_context.predict(to_predict))
+    # aa = ScatterComments()
+    # aa.part_model.predict([1,2])
+    aa = joblib.load("../part_model.m")
+    aa.predict([1, 2])

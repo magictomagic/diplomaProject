@@ -15,9 +15,9 @@ class CreateModels:
                 break
         self.to_train = np.array(self.view_judge)
         self.cluster_context = ClusterComments(part_cluster, role_cluster, dr_cluster, rs_cluster, heatage_cluster)
-        self.cluster_context.persistent_storage()
-
+        self.cluster_context.train(self.to_train)
 
 if __name__ == '__main__':
+    print(train_db)
     eyes = CreateModels(train_db)
 

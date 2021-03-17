@@ -3,26 +3,22 @@ from layer2_anomaly_detection import *
 
 
 class Visualization:
-    def __init__(self, to_train_db, to_predict_db):
+    def __init__(self, to_predict_db):
         self.view_judge = []
-        self.raw_comments_to_train = r.hgetall(to_train_db)
         self.raw_comments_to_predict = r.hgetall(to_predict_db)
         self.vectorize_context = ProjectComments(6, 8, 4)  # 这里可以调参
-        self.iter_comment = IterateComments(self.raw_comments_to_train)
+        self.iter_comment = IterateComments(self.raw_comments_to_predict)
         while True:
             misc = self.iter_comment.iter_loads_comments()
             if not isinstance(misc, bool):
-                c = self.vectorize_context.iter_project_quad(*itemgetter(*keys)(misc))
-                self.view_judge.append(c)
+                self.view_judge.append(self.vectorize_context.iter_project_quad(*itemgetter(*keys)(misc)))
             else:
                 break
-        self.to_train = np.array(self.view_judge)
-        self.to_predict = self.to_train  # 暂时先这样搞
-        self.cluster_context = ClusterComments()  # 这里也可以调参
+        self.to_predict = np.array(self.view_judge)
+        self.cluster_context = ScatterComments()  # 这里也可以调参
         self.show_predict = None
 
     def to_train_predict(self):
-        self.cluster_context.train(self.to_train)
         predicted = self.cluster_context.predict(self.to_predict)
         self.show_predict = list(predicted)
         self.show_predict.append(self.to_predict[:, 0])
@@ -47,6 +43,7 @@ class Visualization:
 
 
 if __name__ == '__main__':
-    eyes = Visualization("comments_zh", "comments_zh")
+    eyes = Visualization(predict_db)
+    eyes.to_train_predict()
     eyes.save_to_csv()
 

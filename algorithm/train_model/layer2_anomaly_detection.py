@@ -1,14 +1,17 @@
 from sklearn.cluster import Birch
 import joblib
 import sys
-sys.path.append("..")
-from layer1_vectorize_context import *
+import os
+
+sys.path.append(os.path.abspath(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
+from algorithm.layer1_vectorize_context import *
 
 
 class ClusterComments:
     """
     including train and predict models
     """
+
     def __init__(self, part_cluster=None, role_cluster=None, dr_cluster=None, rs_cluster=None, heatage_cluster=None):
         self.part_cluster = part_cluster
         self.role_cluster = role_cluster
@@ -20,19 +23,23 @@ class ClusterComments:
         self.role_model = None
         self.dr_model = None
         self.rs_model = None
+        # ii = 0
+        # while ii < 1000:
+        #     print("ClusterComments initialize done")
+        #     ii += 1
 
     def train(self, vectorized_context):
         return self._train_part(self._to_array(vectorized_context[:, 1])), self._train_role(
             self._to_array(vectorized_context[:, 2])), self._train_dr(
             self._to_array(vectorized_context[:, 3])), self._train_rs(
-            self._to_array(vectorized_context[:, 4]))\
+            self._to_array(vectorized_context[:, 4])) \
             # , self._train_heatage(self._to_array(vectorized_context[:, 5]))
 
-    def persistent_storage(self):
-        joblib.dump(self.part_model, '../part_model.m')
-        joblib.dump(self.role_model, '../role_model.m')
-        joblib.dump(self.dr_model, '../dr_model.m')
-        joblib.dump(self.rs_model, '../rs_model.m')
+    # def persistent_storage(self):
+    #     jj = 0
+    #     while jj < 1000:
+    #         jj += 1
+    #         print("start persistent storage...")
 
     def _to_array(self, X):
         npa = []
@@ -43,18 +50,26 @@ class ClusterComments:
     def _train_part(self, X):
         self.part_model = Birch(n_clusters=self.part_cluster)
         self.part_model.fit(X)
+        joblib.dump(self.part_model, '../part_model.m')
+        # part_model = Birch(n_clusters=self.part_cluster)
+        # part_model.fit(X)
+        # print("aaaaa")
+        # joblib.dump(part_model, 'aapart_model.m')
 
     def _train_role(self, X):
         self.role_model = Birch(n_clusters=self.role_cluster)
         self.role_model.fit(X)
+        joblib.dump(self.role_model, '../role_model.m')
 
     def _train_dr(self, X):
         self.dr_model = Birch(n_clusters=self.dr_cluster)
         self.dr_model.fit(X)
+        joblib.dump(self.dr_model, '../dr_model.m')
 
     def _train_rs(self, X):
         self.rs_model = Birch(n_clusters=self.rs_cluster)
         self.rs_model.fit(X)
+        joblib.dump(self.rs_model, '../rs_model.m')
 
     def _train_heatage(self, X):
         pass
@@ -65,21 +80,5 @@ class ClusterComments:
 
 
 if __name__ == '__main__':
-    raw_comments = r.hgetall(raw_comments_db)
-    vectorize_context = ProjectComments(6, 8, 4)
-    iter_comment = IterateComments(raw_comments)
-
-    while True:
-        misc = iter_comment.iter_loads_comments()
-        if not isinstance(misc, bool):
-            c = vectorize_context.iter_project_quad(*itemgetter(*keys)(misc))
-            view_judge.append(c)
-        else:
-            break
-
-    to_train = np.array(view_judge)
-    cluster_context = ClusterComments()
-    cluster_context.train(to_train)
-    to_predict = to_train
-
-    print(cluster_context.predict(to_predict))
+    part_model = joblib.load("aapart_model.m")
+    part_model.predict([1, 2])
