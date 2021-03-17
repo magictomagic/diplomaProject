@@ -11,13 +11,16 @@ class IterateComments:
 
     def iter_loads_comments(self):
         try:
-            value = json.loads(next(self.iter_raw)[1])
-            return {  # 'comment_id': value['comment_id'], 'user_id': value['user_id'], 'url_id': value['url_id'],
-                'comment_text': value['comment_text'], 'comment_emoji': value['comment_emoji'],
-                'like_count': value['like_count'] or 0, 'reply_count': value['reply_count'] or 0,
-                'be_co_retweet': value['be_co_retweet'] or 0, 'be_co_comments': value['be_co_comments'] or 0,
-                'be_co_like': value['be_co_like'] or 0, 'be_contents': value['be_contents'],
-                'be_emoji': value['be_emoji']}
+            items = next(self.iter_raw)
+            value = json.loads(items[1])
+            key = items[0]
+            return {  # 'comment_id': key['comment_id'], 'user_id': key['user_id'], 'url_id': key['url_id'],
+                    'hash_id': key,
+                    'comment_text': value['comment_text'], 'comment_emoji': value['comment_emoji'],
+                    'like_count': value['like_count'] or 0, 'reply_count': value['reply_count'] or 0,
+                    'be_co_retweet': value['be_co_retweet'] or 0, 'be_co_comments': value['be_co_comments'] or 0,
+                    'be_co_like': value['be_co_like'] or 0, 'be_contents': value['be_contents'],
+                    'be_emoji': value['be_emoji']}
         except StopIteration:
             return False
 
@@ -29,6 +32,7 @@ class ProjectComments:
     https://ltp.readthedocs.io/zh_CN/latest/
     有些是”栏得啊毛“的
     """
+
     def __init__(self, dimension_threshold_role=5, dimension_threshold_dr=8, dimension_threshold_ner=4):
         self.ltp = LTP()
         """
