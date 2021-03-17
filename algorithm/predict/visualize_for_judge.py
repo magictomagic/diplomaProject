@@ -6,7 +6,7 @@ class Visualization:
     def __init__(self, to_predict_db):
         self.view_judge = []
         self.raw_comments_to_predict = r.hgetall(to_predict_db)
-        self.vectorize_context = ProjectComments(6, 8, 4)  # 这里可以调参
+        self.vectorize_context = ProjectComments(threshold_role, threshold_dr, threshold_ner)
         self.iter_comment = IterateComments(self.raw_comments_to_predict)
         while True:
             misc = self.iter_comment.iter_loads_comments()
@@ -15,19 +15,17 @@ class Visualization:
             else:
                 break
         self.to_predict = np.array(self.view_judge)
-        self.cluster_context = ScatterComments()  # 这里也可以调参
-        predicted = self.cluster_context.predict(self.to_predict)
-        self.show_predict = list(predicted)
-        self.show_predict.append(self.to_predict[:, 0])
-        self.data_chunk = self.show_predict
-
+        self.cluster_context = ScatterComments(part_cluster, role_cluster, dr_cluster, rs_cluster, heatage_cluster)
+        self.predicted = list(self.cluster_context.predict(self.to_predict))
+        self.predicted.append(self.to_predict[:, 0])
+        # print(self.predicted)
 
     def save_to_csv(self):
         cont_list = []
-        data_scale = len(self.data_chunk[0])
+        data_scale = len(self.predicted[0])
         index = 0
         while index < data_scale:
-            data_slice = np.array(self.data_chunk)[:, index]
+            data_slice = np.array(self.predicted)[:, index]
             cont_list.append({"part": data_slice[0],
                               "role": data_slice[1],
                               "dr": data_slice[2],
