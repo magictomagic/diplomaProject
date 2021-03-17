@@ -47,6 +47,6 @@ class Visualization:
 
 
 if __name__ == '__main__':
-    eyes = Visualization("tmp_c", "tmp_c")
+    eyes = Visualization("comments_zh", "comments_zh")
     eyes.save_to_csv()
 

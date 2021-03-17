@@ -85,20 +85,20 @@ class ClusterComments:
         # heatage_model.fit(np_X)
         # return heatage_model
 
-    # def _predict_part(self, y):
-    #     return self.part_model.predict(y)
-    #
-    # def _predict_role(self, y):
-    #     return self.role_model.predict(y)
-    #
-    # def _predict_dr(self, y):
-    #     return self.dr_model.predict(y)
-    #
-    # def _predict_rs(self, y):
-    #     return self.rs_model.predict(y)
-    #
-    # def _predict_heatage(self, y):
-    #     pass
+    def _predict_part(self, y):
+        return self.part_model.predict(y)
+
+    def _predict_role(self, y):
+        return self.role_model.predict(y)
+
+    def _predict_dr(self, y):
+        return self.dr_model.predict(y)
+
+    def _predict_rs(self, y):
+        return self.rs_model.predict(y)
+
+    def _predict_heatage(self, y):
+        pass
 
 
 if __name__ == '__main__':
