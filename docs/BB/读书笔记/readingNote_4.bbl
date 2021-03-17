@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{ljlw1}
+朱添田,
+  ``基于数据驱动的移动互联网异常用户行为检测方法及其应用研究,''
+
+\bibitem{jsbook2002}
+{John R. Searle}, {\em Can Computers Think?}
+\newblock Oup Usa, 2002.
+
+\bibitem{zhihu1}
+{云时之间}, ``Nlp系列学习:文本聚类,'' 2019.
+\newblock \url{https://zhuanlan.zhihu.com/p/40991165}.
+
+\bibitem{xuqingtang}
+{xuqingtang}, ``python结巴分词、jieba加载停用词表,'' 2017.
+\newblock
+  \url{https://www.xuqingtang.top/2017/09/03/python%E7%BB%93%E5%B7%B4%E5%88%86%E8%AF%8D%E3%80%81jieba%E5%8A%A0%E8%BD%BD%E5%81%9C%E7%94%A8%E8%AF%8D%E8%A1%A8/}.
+
+\end{thebibliography}

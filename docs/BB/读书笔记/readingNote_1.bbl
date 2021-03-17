@@ -1,0 +1,44 @@
+\begin{thebibliography}{1}
+
+\bibitem{zhao2019pyod}
+Y.~Zhao, Z.~Nasrullah, and Z.~Li, ``Pyod: A python toolbox for scalable outlier
+  detection,'' {\em Journal of Machine Learning Research}, vol.~20, no.~96,
+  pp.~1--7, 2019.
+
+\bibitem{link1}
+{微调}, 2019.
+\newblock \url{https://www.zhihu.com/question/280696035}, Last accessed on
+  2019-05-04.
+
+\bibitem{link2}
+{itread}, 2019.
+\newblock \url{https://www.itread01.com/content/1551725786.html}, Last accessed
+  on 2019-03-05.
+
+\bibitem{link3}
+{ Wikipedia contributors }, 2006.
+\newblock
+  \url{https://en.wikipedia.org/wiki/K-means_clustering#Standard_algorithm_(na%C3%AFve_k-means)}.
+
+\bibitem{link5}
+{清雨影}, ``K-means聚类算法（二）：算法实现及其优化,'' 2019.
+\newblock \url{https://zhuanlan.zhihu.com/p/20463356}.
+
+\bibitem{link4}
+{清雨影}, ``K-means聚类算法（二）：算法实现及其优化,'' 2019.
+\newblock \url{https://zhuanlan.zhihu.com/p/20445085}.
+
+\bibitem{4781136}
+F.~T. {Liu}, K.~M. {Ting}, and Z.~{Zhou}, ``Isolation forest,'' in {\em 2008
+  Eighth IEEE International Conference on Data Mining}, pp.~413--422, 2008.
+
+\bibitem{10.1145/2133360.2133363}
+F.~T. Liu, K.~M. Ting, and Z.-H. Zhou, ``Isolation-based anomaly detection,''
+  {\em ACM Trans. Knowl. Discov. Data}, vol.~6, Mar. 2012.
+
+\bibitem{link6}
+{刘腾飞}, ``机器学习-异常检测算法（一）：isolation forest,''
+  2020.
+\newblock \url{https://https://zhuanlan.zhihu.com/p/27777266}.
+
+\end{thebibliography}
