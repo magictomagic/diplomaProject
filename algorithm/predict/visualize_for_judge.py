@@ -16,21 +16,18 @@ class Visualization:
                 break
         self.to_predict = np.array(self.view_judge)
         self.cluster_context = ScatterComments()  # 这里也可以调参
-        self.show_predict = None
-
-    def to_train_predict(self):
         predicted = self.cluster_context.predict(self.to_predict)
         self.show_predict = list(predicted)
         self.show_predict.append(self.to_predict[:, 0])
-        return self.show_predict
+        self.data_chunk = self.show_predict
+
 
     def save_to_csv(self):
-        data_chunk = self.to_train_predict()
         cont_list = []
-        data_scale = len(data_chunk[0])
+        data_scale = len(self.data_chunk[0])
         index = 0
         while index < data_scale:
-            data_slice = np.array(data_chunk)[:, index]
+            data_slice = np.array(self.data_chunk)[:, index]
             cont_list.append({"part": data_slice[0],
                               "role": data_slice[1],
                               "dr": data_slice[2],
@@ -38,12 +35,10 @@ class Visualization:
                               "comment_texts": data_slice[4]})
             index += 1
         df = pd.DataFrame(cont_list, columns=["comment_texts", "role", "dr", "rs", "part"])
-        # print(df)
-        df.to_csv("./look1.csv", index=False, encoding='utf-8')
+        df.to_csv("../look1.csv", index=False, encoding='utf-8')
 
 
 if __name__ == '__main__':
     eyes = Visualization(predict_db)
-    eyes.to_train_predict()
     eyes.save_to_csv()
 

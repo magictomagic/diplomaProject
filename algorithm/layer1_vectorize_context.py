@@ -1,4 +1,3 @@
-import numpy as np
 from ltp import LTP
 import json
 from math import log2

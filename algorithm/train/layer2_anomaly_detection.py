@@ -1,6 +1,8 @@
+import numpy as np
 from sklearn.cluster import Birch
 import joblib
 import sys
+
 sys.path.append("..")
 from layer1_vectorize_context import *
 
@@ -21,10 +23,6 @@ class ClusterComments:
         self.role_model = None
         self.dr_model = None
         self.rs_model = None
-        # ii = 0
-        # while ii < 1000:
-        #     print("ClusterComments initialize done")
-        #     ii += 1
 
     def train(self, vectorized_context):
         return self._train_part(self._to_array(vectorized_context[:, 1])), self._train_role(
@@ -32,12 +30,6 @@ class ClusterComments:
             self._to_array(vectorized_context[:, 3])), self._train_rs(
             self._to_array(vectorized_context[:, 4])) \
             # , self._train_heatage(self._to_array(vectorized_context[:, 5]))
-
-    # def persistent_storage(self):
-    #     jj = 0
-    #     while jj < 1000:
-    #         jj += 1
-    #         print("start persistent storage...")
 
     def _to_array(self, X):
         npa = []
@@ -49,10 +41,6 @@ class ClusterComments:
         self.part_model = Birch(n_clusters=self.part_cluster)
         self.part_model.fit(X)
         joblib.dump(self.part_model, '../part_model.m')
-        # part_model = Birch(n_clusters=self.part_cluster)
-        # part_model.fit(X)
-        # print("aaaaa")
-        # joblib.dump(part_model, 'aapart_model.m')
 
     def _train_role(self, X):
         self.role_model = Birch(n_clusters=self.role_cluster)
