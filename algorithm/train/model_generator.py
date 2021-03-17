@@ -18,6 +18,6 @@ class CreateModels:
         self.cluster_context.train(self.to_train)
 
 if __name__ == '__main__':
-    print(train_db)
+    # print(train_db)
     eyes = CreateModels(train_db)
 
