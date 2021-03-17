@@ -3,10 +3,7 @@ from ltp import LTP
 import json
 from math import log2
 from operator import itemgetter
-import sys
-sys.path.append("..")
 from config import *
-
 
 
 class IterateComments:

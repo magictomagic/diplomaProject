@@ -1,6 +1,8 @@
-from layer1_vectorize_context import *
 from sklearn.cluster import Birch
 import joblib
+import sys
+sys.path.append("..")
+from layer1_vectorize_context import *
 
 
 class ClusterComments:
