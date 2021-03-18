@@ -6,9 +6,18 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: 
+    - main
+    - release/*
+    # 表示src目录下任何文件发生改动，触发当前流程
+    paths:
+    - src/*
   pull_request:
     branches: [ main ]
+    
+  # 每隔一段时间执行一次当前的流程
+  schedule:
+  - cron: '30 8 * * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
