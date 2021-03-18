@@ -70,7 +70,7 @@ jobs:
       - run: |
           node -v
           curl localhost:8080
-
+          echo ${{ secrets. MYSECRET }}
 
 #  build2:
 #    need: build
