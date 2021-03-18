@@ -38,9 +38,10 @@ class ClusterComments:
         return npa
 
     def _train_part(self, X):
-        self.part_model = Birch(n_clusters=self.part_cluster)
-        self.part_model.fit(X)
-        joblib.dump(self.part_model, '../part_model.m')
+        pass
+        # self.part_model = Birch(n_clusters=self.part_cluster)
+        # self.part_model.fit(X)
+        # joblib.dump(self.part_model, '../part_model.m')
 
     def _train_role(self, X):
         self.role_model = Birch(n_clusters=self.role_cluster)
