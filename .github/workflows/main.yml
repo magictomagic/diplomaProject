@@ -10,8 +10,8 @@ on:
     - main
     - release/*
     # 表示src目录下任何文件发生改动，触发当前流程
-    paths:
-    - src/*
+#    paths:
+#    - src/*
   pull_request:
     branches: [ main ]
     
