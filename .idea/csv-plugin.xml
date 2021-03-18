@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\algorithm\predict\test.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\algorithm\train\model_generator.py">
           <value>
             <Attribute>

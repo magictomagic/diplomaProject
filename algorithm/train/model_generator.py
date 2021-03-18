@@ -1,3 +1,5 @@
+import sys
+sys.setrecursionlimit(100000)
 from layer2_anomaly_detection import *
 
 
