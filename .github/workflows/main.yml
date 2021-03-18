@@ -48,6 +48,7 @@ jobs:
           echo test, and deploy your project.
 
   job1:
+    runs-on: Ubuntu-latest
     # 指定在什么容器中运行
     container:
       image: node:8
