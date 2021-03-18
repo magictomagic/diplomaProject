@@ -8,6 +8,7 @@ on:
   push:
     branches: 
     - main
+    - no_part
     - release/*
     # 表示src目录下任何文件发生改动，触发当前流程
 #    paths:
