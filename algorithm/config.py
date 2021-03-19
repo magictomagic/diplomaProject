@@ -1,6 +1,15 @@
 import redis
 
-train_db = "comments_zh"
+
+# pwd = os.path.abspath(os.path.dirname(os.getcwd()))
+
+# alg_path = os.path.join(os.path.abspath(os.path.dirname(os.getcwd())), 'algorithm')
+
+# sys.path.append(os.getcwd())
+# sys.path.append(os.path.join(os.getcwd(), 'predict'))
+
+
+train_db = "tmp1"  # comments_zh
 predict_db = "tmp1"
 
 threshold_role = 6

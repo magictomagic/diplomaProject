@@ -1,5 +1,5 @@
 import pandas as pd
-from layer2_anomaly_detection import *
+from algorithm.train.layer2_anomaly_detection import *
 
 
 class Visualization:

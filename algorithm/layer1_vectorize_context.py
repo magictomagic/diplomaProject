@@ -1,8 +1,9 @@
 from ltp import LTP
 import json
 from math import log2
+
 from operator import itemgetter
-from config import *
+from algorithm.config import *
 
 
 class IterateComments:

@@ -1,9 +1,9 @@
-from train.model_generator import *
-from predict.prophet import *
-from config import *
+from algorithm.train.model_generator import *
+from algorithm.predict.prophet import *
+from algorithm.config import *
 
 # 如果存在，就不build了
-# CreateModels(train_db)
+CreateModels(train_db)
 
-cft = CommentsFilter(predict_db)
-cft.role()
+# cft = CommentsFilter(predict_db)
+# cft.role()

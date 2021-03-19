@@ -2,9 +2,11 @@ import numpy as np
 from sklearn.cluster import Birch
 import joblib
 import sys
-
-sys.path.append("..")
-from layer1_vectorize_context import *
+import os
+# sys.path.append("..")
+# print("layer2: " + os.path.abspath(os.path.dirname(os.getcwd())))
+# sys.path.append(os.path.abspath(os.path.dirname(os.getcwd())))
+from algorithm.layer1_vectorize_context import *
 
 
 class ClusterComments:

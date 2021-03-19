@@ -1,6 +1,11 @@
 import sys
 sys.setrecursionlimit(100000)
-from layer2_anomaly_detection import *
+import sys
+import os
+# sys.path.append(os.path.join(os.getcwd(), 'train'))
+# print("model_gen: " + os.getcwd())
+# sys.path.append(os.getcwd())
+from algorithm.train.layer2_anomaly_detection import *
 
 
 class CreateModels:
