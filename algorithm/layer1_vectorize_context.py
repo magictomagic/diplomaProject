@@ -16,12 +16,12 @@ class IterateComments:
             value = json.loads(items[1])
             key = items[0]
             return {  # 'comment_id': key['comment_id'], 'user_id': key['user_id'], 'url_id': key['url_id'],
-                    'hash_id': key,
-                    'comment_text': value['comment_text'], 'comment_emoji': value['comment_emoji'],
-                    'like_count': value['like_count'] or 0, 'reply_count': value['reply_count'] or 0,
-                    'be_co_retweet': value['be_co_retweet'] or 0, 'be_co_comments': value['be_co_comments'] or 0,
-                    'be_co_like': value['be_co_like'] or 0, 'be_contents': value['be_contents'],
-                    'be_emoji': value['be_emoji']}
+                'hash_id': key,
+                'comment_text': value['comment_text'], 'comment_emoji': value['comment_emoji'],
+                'like_count': value['like_count'] or 0, 'reply_count': value['reply_count'] or 0,
+                'be_co_retweet': value['be_co_retweet'] or 0, 'be_co_comments': value['be_co_comments'] or 0,
+                'be_co_like': value['be_co_like'] or 0, 'be_contents': value['be_contents'],
+                'be_emoji': value['be_emoji']}
         except StopIteration:
             return False
 
@@ -40,9 +40,13 @@ class ProjectComments:
         这个词性标注官方文档不全的 https://ltp.readthedocs.io/zh_CN/latest/appendix.html
         那个代码中有但文档中没有的 'z' 不知道表示什么东东
         """
-        self.switch = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'g': 5, 'h': 6, 'i': 7, 'j': 8, 'k': 9, 'm': 10, 'n': 11,
-                       'nd': 12, 'nh': 13, 'ni': 14, 'nl': 15, 'ns': 16, 'nt': 17, 'nz': 18, 'o': 19, 'p': 20, 'q': 21,
-                       'r': 22, 'u': 23, 'v': 24, 'wp': 25, 'ws': 26, 'x': 27, 'z': 28}
+        # 30维导致训练了以后模型太大，github传不上去。且这个分的本身就过细了，聚类聚得类数太多。所以我把连词，前缀之类的去了。其它能合并的合并，比如a和b
+        # self.switch = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'g': 5, 'h': 6, 'i': 7, 'j': 8, 'k': 9, 'm': 10, 'n': 11,
+        #                'nd': 12, 'nh': 13, 'ni': 14, 'nl': 15, 'ns': 16, 'nt': 17, 'nz': 18, 'o': 19, 'p': 20, 'q': 21,
+        #                'r': 22, 'u': 23, 'v': 24, 'wp': 25, 'ws': 26, 'x': 27, 'z': 28}
+        self.switch = {'a': 0, 'b': 0, 'i': 1, 'j': 2, 'n': 3, 'nd': 4, 'nh': 2, 'ni': 2, 'nl': 5, 'ns': 5, 'nt': 4,
+                       'nz': 1, 'r': 6, 'v': 7, 'ws': 8, 'z': 9}
+
         self.dimension_threshold_role = dimension_threshold_role
         self.dimension_threshold_dr = dimension_threshold_dr
         self.dimension_threshold_ner = dimension_threshold_ner
@@ -64,10 +68,10 @@ class ProjectComments:
 
     def _part_of_speech(self, hidden):
         pos = self.ltp.pos(hidden)
-        tag_list = [0] * 30
+        tag_list = [0] * 10
         for sub_vector in pos:
             for tag in sub_vector:
-                tag_list[self.switch.get(tag, 29)] += 1
+                tag_list[self.switch.get(tag, 9)] += 1
         return tag_list
 
     def _semantic_role(self, hidden):

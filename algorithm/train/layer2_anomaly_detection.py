@@ -1,11 +1,6 @@
 import numpy as np
 from sklearn.cluster import Birch
 import joblib
-import sys
-import os
-# sys.path.append("..")
-# print("layer2: " + os.path.abspath(os.path.dirname(os.getcwd())))
-# sys.path.append(os.path.abspath(os.path.dirname(os.getcwd())))
 from algorithm.layer1_vectorize_context import *
 
 
@@ -26,12 +21,11 @@ class ClusterComments:
         self.dr_model = None
         self.rs_model = None
 
-    def train(self, vectorized_context):
-        return self._train_part(self._to_array(vectorized_context[:, 1])), self._train_role(
-            self._to_array(vectorized_context[:, 2])), self._train_dr(
-            self._to_array(vectorized_context[:, 3])), self._train_rs(
-            self._to_array(vectorized_context[:, 4])) \
-            # , self._train_heatage(self._to_array(vectorized_context[:, 5]))
+    def train(self, vectorized_context, part=True, role=True, dr=True, rs=True, heatage=False):
+        return part and self._train_part(self._to_array(vectorized_context[:, 1])), role and self._train_role(
+            self._to_array(vectorized_context[:, 2])), dr and self._train_dr(
+            self._to_array(vectorized_context[:, 3])), rs and self._train_rs(
+            self._to_array(vectorized_context[:, 4])), heatage and self._train_heatage(self._to_array(vectorized_context[:, 5]))
 
     def _to_array(self, X):
         npa = []
@@ -40,10 +34,9 @@ class ClusterComments:
         return npa
 
     def _train_part(self, X):
-        pass
-        # self.part_model = Birch(n_clusters=self.part_cluster)
-        # self.part_model.fit(X)
-        # joblib.dump(self.part_model, '../part_model.m')
+        self.part_model = Birch(n_clusters=self.part_cluster)
+        self.part_model.fit(X)
+        joblib.dump(self.part_model, '../part_model.m')
 
     def _train_role(self, X):
         self.role_model = Birch(n_clusters=self.role_cluster)
@@ -62,10 +55,6 @@ class ClusterComments:
 
     def _train_heatage(self, X):
         pass
-        # np_X = self.to_array(X)
-        # heatage_model = Birch(n_clusters=self.heatage_cluster)
-        # heatage_model.fit(np_X)
-        # return heatage_model
 
 
 if __name__ == '__main__':

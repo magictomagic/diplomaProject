@@ -35,8 +35,7 @@ class ScatterComments:
         return npa
 
     def _predict_part(self, y):
-        # return self.part_model.predict(y)
-        return None
+        return self.part_model.predict(y)
 
     def _predict_role(self, y):
         return self.role_model.predict(y)

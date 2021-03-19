@@ -1,5 +1,5 @@
 import pandas as pd
-from algorithm.train.layer2_anomaly_detection import *
+from algorithm.predict.layer2_anomaly_detection import *
 
 
 class Visualization:
@@ -24,7 +24,7 @@ class Visualization:
 
 
 class CommentsFilter:
-    def __init__(self, to_predict_db):
+    def __init__(self, to_predict_db, output=False):
         """
         初始化所有是否过滤的 flag 为 0
         :param to_predict_db:
@@ -52,6 +52,23 @@ class CommentsFilter:
         print(self.predicted)
         print(self.id_judge)
         print(jl)
+        # self.predicted
+        output and self.save_to_csv()
+
+    def save_to_csv(self):
+        cont_list = []
+        data_scale = len(self.predicted[0])
+        index = 0
+        while index < data_scale:
+            data_slice = np.array(self.predicted)[:, index]
+            cont_list.append({"part": data_slice[0],
+                              "role": data_slice[1],
+                              "dr": data_slice[2],
+                              "rs": data_slice[3],
+                              "comment_texts": data_slice[4]})
+            index += 1
+        df = pd.DataFrame(cont_list, columns=["comment_texts", "role", "dr", "rs", "part"])
+        df.to_csv("../look1.csv", index=False, encoding='utf-8')
 
     def strategy(self):
         """
@@ -90,6 +107,6 @@ class CommentsFilter:
 
 if __name__ == '__main__':
     # print(role_delete.get(2, 100))
-    eyes = CommentsFilter(predict_db)
+    eyes = CommentsFilter(predict_db, output=False)
     eyes.role()
 

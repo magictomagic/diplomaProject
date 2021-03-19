@@ -1,10 +1,5 @@
 import sys
 sys.setrecursionlimit(100000)
-import sys
-import os
-# sys.path.append(os.path.join(os.getcwd(), 'train'))
-# print("model_gen: " + os.getcwd())
-# sys.path.append(os.getcwd())
 from algorithm.train.layer2_anomaly_detection import *
 
 
@@ -22,7 +17,8 @@ class CreateModels:
                 break
         self.to_train = np.array(self.view_judge)
         self.cluster_context = ClusterComments(part_cluster, role_cluster, dr_cluster, rs_cluster, heatage_cluster)
-        self.cluster_context.train(self.to_train)
+        self.cluster_context.train(self.to_train, part=train_part, role=train_role, dr=train_dr, rs=train_rs)
+
 
 if __name__ == '__main__':
     # print(train_db)
