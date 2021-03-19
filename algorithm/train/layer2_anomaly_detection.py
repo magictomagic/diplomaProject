@@ -36,22 +36,22 @@ class ClusterComments:
     def _train_part(self, X):
         self.part_model = Birch(n_clusters=self.part_cluster)
         self.part_model.fit(X)
-        joblib.dump(self.part_model, '../part_model.m')
+        joblib.dump(self.part_model, 'part_model.m')
 
     def _train_role(self, X):
         self.role_model = Birch(n_clusters=self.role_cluster)
         self.role_model.fit(X)
-        joblib.dump(self.role_model, '../role_model.m')
+        joblib.dump(self.role_model, 'role_model.m')
 
     def _train_dr(self, X):
         self.dr_model = Birch(n_clusters=self.dr_cluster)
         self.dr_model.fit(X)
-        joblib.dump(self.dr_model, '../dr_model.m')
+        joblib.dump(self.dr_model, 'dr_model.m')
 
     def _train_rs(self, X):
         self.rs_model = Birch(n_clusters=self.rs_cluster)
         self.rs_model.fit(X)
-        joblib.dump(self.rs_model, '../rs_model.m')
+        joblib.dump(self.rs_model, 'rs_model.m')
 
     def _train_heatage(self, X):
         pass

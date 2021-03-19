@@ -1,8 +1,8 @@
 import redis
 
 
-train_db = "tmp1"  # comments_zh
-predict_db = "tmp1"
+train_db = "comments_zh"  # comments_zh
+predict_db = "comments_zh"
 
 threshold_role = 6
 threshold_dr = 8

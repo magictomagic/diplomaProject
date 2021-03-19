@@ -49,9 +49,9 @@ class CommentsFilter:
         if jl < 3:
             print("发生甚么事了？")
         self.flag_killer = [0] * jl
-        print(self.predicted)
-        print(self.id_judge)
-        print(jl)
+        # print(self.predicted)
+        # print(self.id_judge)
+        # print(jl)
         # self.predicted
         output and self.save_to_csv()
 
@@ -68,7 +68,7 @@ class CommentsFilter:
                               "comment_texts": data_slice[4]})
             index += 1
         df = pd.DataFrame(cont_list, columns=["comment_texts", "role", "dr", "rs", "part"])
-        df.to_csv("../look1.csv", index=False, encoding='utf-8')
+        df.to_csv("label.csv", index=False, encoding='utf-8')
 
     def strategy(self):
         """
@@ -87,7 +87,7 @@ class CommentsFilter:
         for group in role_v:
             self.flag_killer[index] = role_delete.get(group, 8964)
             index += 1
-        print(self.flag_killer)
+        # print(self.flag_killer)
 
     def dr(self):
         pass

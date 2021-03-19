@@ -16,10 +16,10 @@ class ScatterComments:
         self.rs_cluster = rs_cluster
         self.heatage_cluster = heatage_cluster
 
-        self.part_model = joblib.load('../part_model.m')
-        self.role_model = joblib.load('../role_model.m')
-        self.dr_model = joblib.load('../dr_model.m')
-        self.rs_model = joblib.load('../rs_model.m')
+        self.part_model = joblib.load('part_model.m')
+        self.role_model = joblib.load('role_model.m')
+        self.dr_model = joblib.load('dr_model.m')
+        self.rs_model = joblib.load('rs_model.m')
 
     def predict(self, vectorized_context):
         return self._predict_part(self._to_array(vectorized_context[:, 1])), self._predict_role(
