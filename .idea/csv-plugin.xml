@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\algorithm\compatibility.py">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\algorithm\layer1_vectorize_context.py">
           <value>
             <Attribute>
