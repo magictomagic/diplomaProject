@@ -3,13 +3,13 @@ from algorithm.predict.prophet import *
 from algorithm.config import *
 import platform
 import sys
-
 sysstr = platform.system()
+
 if sysstr == "Linux":
     import resource
     resource.setrlimit(resource.RLIMIT_STACK, (2 ** 29, -1))
     sys.setrecursionlimit(100000)
-if sysstr == "Windows":
+elif sysstr == "Windows":
     sys.setrecursionlimit(100000)
 else:
     print("System incompatible")
