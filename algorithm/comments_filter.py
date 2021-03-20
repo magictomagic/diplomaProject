@@ -11,6 +11,7 @@ if sysstr == "Linux":
     sys.setrecursionlimit(100000)
 elif sysstr == "Windows":
     sys.setrecursionlimit(100000)
+    print("你 Windows 练死劲不管用")
 else:
     print("System incompatible")
     sys.exit(0)
