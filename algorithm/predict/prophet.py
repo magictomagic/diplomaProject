@@ -23,6 +23,7 @@ class Visualization:
         df.to_csv("../look1.csv", index=False, encoding='utf-8')
 
 
+# TODO: 四层过滤，中途限制百分比吗？
 class CommentsFilter:
     def __init__(self, to_predict_db, output=False):
         """
@@ -109,4 +110,3 @@ if __name__ == '__main__':
     # print(role_delete.get(2, 100))
     eyes = CommentsFilter(predict_db, output=False)
     eyes.role()
-
