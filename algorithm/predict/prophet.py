@@ -71,6 +71,22 @@ class CommentsFilter:
         df = pd.DataFrame(cont_list, columns=["comment_texts", "role", "dr", "rs", "part"])
         df.to_csv("label.csv", index=False, encoding='utf-8')
 
+    def to_feel_layer_part(self):
+        self.strategy()
+        cont_list = []
+        data_scale = len(self.predicted[0])
+        index = 0
+        while index < data_scale:
+            data_slice = np.array(self.predicted)[:, index]
+            cont_list.append({"part": data_slice[0],
+                              "filter": self.flag_killer[index],
+                              "comment_texts": data_slice[4]})
+            index += 1
+        df = pd.DataFrame(cont_list, columns=["comment_texts", "filter", "part"])
+        # print(df)
+        # print(self.predicted)
+        df.to_csv("feel.csv", index=False, encoding='utf-8')
+
     def strategy(self):
         """
         过滤链
@@ -78,7 +94,6 @@ class CommentsFilter:
         """
         self.role()
         self.dr()
-        pass
 
     def role(self):
         """
@@ -90,7 +105,7 @@ class CommentsFilter:
         for group in role_v:
             self.flag_killer[index] = role_delete.get(group, 1)
             index += 1
-        print(self.flag_killer)
+        # print(self.flag_killer)
 
     def dr(self):
         """
@@ -105,12 +120,19 @@ class CommentsFilter:
             if self.flag_killer[index] < 5:
                 self.flag_killer[index] = dr_delete.get(group, 1)
             index += 1
-        print(self.flag_killer)
+        # print(self.flag_killer)
 
     def rs(self):
+        """
+        所谓物极必反，粒度过于粗应该 留着过年
+        """
         pass
 
     def part(self):
+        """
+        这边的粒度更加细了，直接感觉不管用了，要先把之前过滤的东西预测一下再感觉
+        """
+
         pass
 
     # def end(self):

@@ -22,4 +22,4 @@ else:
 cft = CommentsFilter(predict_db, output=False)
 
 
-cft.strategy()
+cft.to_feel_layer_part()
