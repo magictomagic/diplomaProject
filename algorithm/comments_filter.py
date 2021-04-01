@@ -16,10 +16,10 @@ else:
     print("System incompatible")
     sys.exit(0)
 
-# 如果存在，就不build了
-CreateModels(train_db)
+# TODO: 如果对应的 model 存在，就不 build 了
+# CreateModels(train_db)
 
-cft = CommentsFilter(predict_db, output=True)
+cft = CommentsFilter(predict_db, output=False)
 
 
-# cft.role()
+cft.strategy()

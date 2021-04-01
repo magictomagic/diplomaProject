@@ -76,6 +76,8 @@ class CommentsFilter:
         过滤链
         :return: {id_judge: flag_killer}
         """
+        self.role()
+        self.dr()
         pass
 
     def role(self):
@@ -86,12 +88,24 @@ class CommentsFilter:
         role_v = self.predicted[1]
         index = 0
         for group in role_v:
-            self.flag_killer[index] = role_delete.get(group, 8964)
+            self.flag_killer[index] = role_delete.get(group, 1)
             index += 1
-        # print(self.flag_killer)
+        print(self.flag_killer)
 
     def dr(self):
-        pass
+        """
+        第二层过滤：分的类粒度更细，接收上一层的残渣
+        对第一层设置过滤等级，推荐3,4,5,6，我的幸运数字。这里我用5, 就是说5,6都不要
+        然后自身再通过 感觉算法 来调参，使过滤更加精确
+        1，2，3，4进行分
+        """
+        dr_v = self.predicted[2]
+        index = 0
+        for group in dr_v:
+            if self.flag_killer[index] < 5:
+                self.flag_killer[index] = dr_delete.get(group, 1)
+            index += 1
+        print(self.flag_killer)
 
     def rs(self):
         pass

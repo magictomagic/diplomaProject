@@ -2,7 +2,7 @@ import redis
 
 
 train_db = "comments_zh"  # comments_zh tmp1
-predict_db = "comments_zh"
+predict_db = "tmp1"
 
 threshold_role = 6
 threshold_dr = 8
@@ -16,8 +16,8 @@ heatage_cluster = None
 
 # Config your filter strategy
 part_delete = {}
-role_delete = {2: 5, 3: 4}
-dr_delete = {}
+role_delete = {5738: 6, 5746: 3, 5735: 5, 5686: 2, 5737: 4, 5597: 5}
+dr_delete = {781: 5, 1275: 5, 1276: 4, 1123: 2, 1147: 3, 1004: 6}
 rs_delete = {}
 
 train_part = True

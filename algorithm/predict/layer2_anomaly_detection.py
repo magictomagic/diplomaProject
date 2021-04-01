@@ -1,8 +1,8 @@
 import numpy as np
 import joblib
 import sys
-sys.path.append("..")
-from layer1_vectorize_context import *
+# sys.path.append("..")
+from algorithm.layer1_vectorize_context import *
 
 
 class ScatterComments:
