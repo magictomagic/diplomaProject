@@ -15,7 +15,8 @@ rs_cluster = None
 heatage_cluster = None
 
 # Config your filter strategy
-part_delete = {}
+# 铁定水军：11889
+part_delete = {12741: 6, 24964: 6, 12217: 5, 11904: 5, 12420: 5, 11889: 6}
 role_delete = {5738: 6, 5746: 3, 5735: 5, 5686: 2, 5737: 4, 5597: 5}
 dr_delete = {781: 5, 1275: 5, 1276: 4, 1123: 2, 1147: 3, 1004: 6}
 rs_delete = {}
