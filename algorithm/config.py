@@ -2,7 +2,7 @@ import redis
 
 
 train_db = "comments_zh"  # comments_zh tmp1
-predict_db = "comments_zh"
+predict_db = "tmp1"
 
 threshold_role = 6
 threshold_dr = 8
@@ -19,7 +19,7 @@ heatage_cluster = None
 part_delete = {12741: 6, 24964: 6, 12217: 5, 11904: 5, 12420: 5, 11889: 6}
 role_delete = {5738: 6, 5746: 3, 5735: 5, 5686: 2, 5737: 4, 5597: 5}
 dr_delete = {781: 5, 1275: 5, 1276: 4, 1123: 2, 1147: 3, 1004: 6}
-rs_delete = {}
+rs_delete = {}  # 感觉不出了，经过三重过滤，到这里基本没废话了
 
 train_part = True
 train_role = False
