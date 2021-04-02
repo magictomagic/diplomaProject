@@ -17,10 +17,11 @@ else:
     print("System incompatible")
     sys.exit(0)
 
-# DO个屁，能用就行。日相为马, 和时相相害, 和月相相冲, 切忌完美主义: 如果对应的 model 存在，就不 build 了
-# CreateModels(train_db)
-
+# 封装成接口
+# 输入：数据库中格式的数组 key + value
+# 输出：key + number
+# TODO: 先前端获取评论数据，传到 python 端，看数据能否被接收到。
 cft = CommentsFilter(predict_db, output=False)
+cft.persist_storage()
 
-
-cft.to_feel_layer(4)
+# cft.to_feel_layer(4)

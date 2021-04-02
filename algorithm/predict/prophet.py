@@ -23,7 +23,6 @@ class Visualization:
         df.to_csv("../look1.csv", index=False, encoding='utf-8')
 
 
-# TODO: 四层过滤，中途限制百分比吗？
 class CommentsFilter:
     def __init__(self, to_predict_db, output=False):
         """
@@ -32,7 +31,12 @@ class CommentsFilter:
         """
         self.view_judge = []
         self.id_judge = []
+
+        # TODO: replace "to_predict_db" into from string
         self.raw_comments_to_predict = r.hgetall(to_predict_db)
+        # with open('input_format.txt', 'w+', encoding='utf8') as f:
+        #     f.write(str(self.raw_comments_to_predict))
+
         self.vectorize_context = ProjectComments(threshold_role, threshold_dr, threshold_ner)
         self.iter_comment = IterateComments(self.raw_comments_to_predict)
         while True:
@@ -107,6 +111,12 @@ class CommentsFilter:
             self.part()
         if layer > 4:
             self.rs()
+
+    def persist_storage(self):
+        self.strategy(5)
+        # TODO: store to redis in hashmap
+        print(self.id_judge)
+        print(self.flag_killer)
 
     def role(self):
         """
