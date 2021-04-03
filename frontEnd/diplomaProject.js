@@ -10,12 +10,12 @@ const sleep = (ms) => {
     // jq.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js";
 
     // $("div").ready(() => {
-
+        // 监听个屁，setInterval 不断监听
     // })
 
     let data = Array.from(document.querySelectorAll("[node-type='root_comment']")).map(ele => {
         let commentId = ele.getAttribute("comment_id"),
-            text = ele.textContent.trim().substring(0, 128).trim().split('：')[1];
+            text = ele.textContent.trim().substring(0, 127).trim().split('：')[1];
         if(!text && ele.querySelector('div.WB_media_wrap')){
             text = "img";
         }else if(!text){
