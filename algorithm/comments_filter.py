@@ -1,8 +1,8 @@
 import os
 import sys
-# loc = os.path.dirname(os.path.abspath(__file__))
-# loc = os.path.dirname(loc)
-# sys.path.append(loc)
+loc = os.path.dirname(os.path.abspath(__file__))
+loc = os.path.dirname(loc)
+sys.path.append(loc)
 # print(loc)
 # from algorithm.train.model_generator import *
 from algorithm.predict.prophet import *
