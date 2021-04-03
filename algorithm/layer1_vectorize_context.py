@@ -1,3 +1,6 @@
+# import os
+# import sys
+# sys.path.append(os.getcwd())
 from ltp import LTP
 import json
 from math import log2

@@ -1,3 +1,6 @@
+# import os
+# import sys
+# sys.path.append(os.getcwd())
 import pandas as pd
 from algorithm.predict.layer2_anomaly_detection import *
 

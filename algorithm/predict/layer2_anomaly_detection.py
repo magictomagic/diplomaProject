@@ -1,3 +1,8 @@
+import os
+# loc = os.path.dirname(os.path.abspath(__file__))
+# print(loc)
+# print(os.getcwd())
+# import sys
 import numpy as np
 import joblib
 import sys
@@ -9,23 +14,25 @@ class ScatterComments:
     """
     including train and predict models
     """
+
     def __init__(self, part_cluster=None, role_cluster=None, dr_cluster=None, rs_cluster=None, heatage_cluster=None):
         self.part_cluster = part_cluster
         self.role_cluster = role_cluster
         self.dr_cluster = dr_cluster
         self.rs_cluster = rs_cluster
         self.heatage_cluster = heatage_cluster
-
-        self.part_model = joblib.load('part_model.m')
-        self.role_model = joblib.load('role_model.m')
-        self.dr_model = joblib.load('dr_model.m')
-        self.rs_model = joblib.load('rs_model.m')
+        loc = os.path.dirname(os.path.abspath(__file__)).split('/')[0: -1]
+        loc = '/'.join(loc)
+        self.part_model = joblib.load('/'.join([loc, 'part_model.m']))
+        self.role_model = joblib.load('/'.join([loc, 'role_model.m']))
+        self.dr_model = joblib.load('/'.join([loc, 'dr_model.m']))
+        self.rs_model = joblib.load('/'.join([loc, 'rs_model.m']))
 
     def predict(self, vectorized_context):
         return self._predict_part(self._to_array(vectorized_context[:, 1])), self._predict_role(
             self._to_array(vectorized_context[:, 2])), self._predict_dr(
             self._to_array(vectorized_context[:, 3])), self._predict_rs(
-            self._to_array(vectorized_context[:, 4]))\
+            self._to_array(vectorized_context[:, 4])) \
             # , self._predict_heatage(self._to_array(vectorized_context[:, 5]))
 
     def _to_array(self, X):
