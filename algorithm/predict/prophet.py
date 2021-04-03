@@ -114,7 +114,7 @@ class CommentsFilter:
 
     def persist_storage(self):
         self.strategy(5)
-        # TODO: store to redis in hashmap
+        # TODO: store to redis in hashmap, only use first field in flag_killer
         print(self.id_judge)
         print(self.flag_killer)
 
