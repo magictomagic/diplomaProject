@@ -34,7 +34,14 @@ const sleep = (ms) => {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log(xhr.responseText)
+            let rest = xhr.responseText
+            console.log(rest)
+            console.log(typeof rest)
+            const obj_r = JSON.parse(rest)
+            // let to_del = rest['td']
+            // console.log(typeof to_del)
+            // console.log(to_del)
+            console.log(obj_r['td'])
         }
     };
     xhr.open('POST', 'http://127.0.0.1:3000/simple-cors')

@@ -30,9 +30,14 @@ app.post('/simple-cors', jsonParser, cors(), (req, res) => { // cors() 可不加
     let comments = req.body;
     console.log(comments);
     console.log(typeof comments);
-    judge(comments)
+    // let to_del = judge(comments)
+    let to_del = new Set(['4621646571244256', '4621701683874254', '4621648537326439', '4621702602949786', '4621704179746847', '4621701939464478', '4621648202042171', '4621648906422339', '4621646218397561' ]);
+        to_del = JSON.stringify([...to_del])
+      
+
     console.log(Object.keys(comments).length);
     res.json({
-        text: "Simple CORS requests are working. [POST]"
+        text: "Simple CORS requests are working. [POST]",
+        td: to_del
     })
 })
