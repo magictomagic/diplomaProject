@@ -27,7 +27,7 @@ class Visualization:
 
 
 class CommentsFilter:
-    def __init__(self, to_predict_db, output=False):
+    def __init__(self, to_predict_db, output=False, test=True):
         """
         初始化所有是否过滤的 flag 为 0
         :param to_predict_db:
@@ -36,7 +36,11 @@ class CommentsFilter:
         self.id_judge = []
 
         # TODO: replace "to_predict_db" into from string
-        self.raw_comments_to_predict = r.hgetall(to_predict_db)
+        if test:
+            self.raw_comments_to_predict = r.hgetall(to_predict_db)
+
+        else:
+            self.raw_comments_to_predict = to_predict_db
         # with open('input_format.txt', 'w+', encoding='utf8') as f:
         #     f.write(str(self.raw_comments_to_predict))
 
@@ -53,10 +57,10 @@ class CommentsFilter:
         self.cluster_context = ScatterComments(part_cluster, role_cluster, dr_cluster, rs_cluster, heatage_cluster)
         self.predicted = list(self.cluster_context.predict(self.to_predict))
         self.predicted.append(self.to_predict[:, 0])
-        jl = len(self.id_judge)
-        if jl < 3:
+        self.jl = len(self.id_judge)
+        if self.jl < 3:
             print("发生甚么事了？")
-        self.flag_killer = [0] * jl
+        self.flag_killer = [0] * self.jl
         # print(self.predicted)
         # print(self.id_judge)
         # print(jl)
@@ -120,6 +124,12 @@ class CommentsFilter:
         # TODO: store to redis in hashmap, only use first field in flag_killer
         print(self.id_judge)
         print(self.flag_killer)
+        index = 0
+        dict_obj = {}
+        while index < self.jl:
+            dict_obj[self.id_judge[index]] = self.flag_killer[index]
+            index += 1
+        return dict_obj
 
     def role(self):
         """
