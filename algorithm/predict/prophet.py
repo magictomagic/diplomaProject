@@ -122,8 +122,8 @@ class CommentsFilter:
     def persist_storage(self):
         self.strategy(5)
         # TODO: store to redis in hashmap, only use first field in flag_killer
-        print(self.id_judge)
-        print(self.flag_killer)
+        # print(self.id_judge)
+        # print(self.flag_killer)
         index = 0
         dict_obj = {}
         while index < self.jl:
@@ -136,7 +136,7 @@ class CommentsFilter:
         第一层过滤：等级分为 1 - 6，1 是默认值，表示确定是要的，6 表示确定不要
         :return:
         """
-        print("start role filter")
+        # print("start role filter")
         role_v = self.predicted[1]
         index = 0
         for group in role_v:
@@ -151,7 +151,7 @@ class CommentsFilter:
         然后自身再通过 感觉算法 来调参，使过滤更加精确
         1，2，3，4进行分
         """
-        print("start dr filter")
+        # print("start dr filter")
         dr_v = self.predicted[2]
         index = 0
         for group in dr_v:
@@ -164,13 +164,14 @@ class CommentsFilter:
         """
         所谓物极必反，粒度过于粗应该 留着过年
         """
-        print("start rs filter")
+        pass
+        # print("start rs filter")
 
     def part(self):
         """
         这边的粒度更加细了，直接感觉不管用了，要先把之前过滤的东西预测一下再感觉
         """
-        print("start part filter")
+        # print("start part filter")
         dr_p = self.predicted[0]
         index = 0
         for group in dr_p:

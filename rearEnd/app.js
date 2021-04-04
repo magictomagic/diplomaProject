@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const {judge} = require('./dataFormate')
 app = express()
 
 port = 3000
@@ -29,6 +30,7 @@ app.post('/simple-cors', jsonParser, cors(), (req, res) => { // cors() 可不加
     let comments = req.body;
     console.log(comments);
     console.log(typeof comments);
+    judge(comments)
     console.log(Object.keys(comments).length);
     res.json({
         text: "Simple CORS requests are working. [POST]"
