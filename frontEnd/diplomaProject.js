@@ -1,18 +1,15 @@
 const sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+//  var script = document.createElement("script");
+//     script.src = "https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js";
+//     document.getElementsByTagName('head')[0].appendChild(script);
 
 (async() => {
     'use strict';
-    await sleep(6000); // 之后迭代忙等监控网页是否加载出来
-    // const jq = document.createElement('script');
-    // jq.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js";
-
-    // $("div").ready(() => {
-        // 监听个屁，setInterval 不断监听
-    // })
-
+    while(document.querySelectorAll("[node-type='root_comment']").length < 5){
+        await sleep(500)
+    }
     let data = Array.from(document.querySelectorAll("[node-type='root_comment']")).map(ele => {
         let commentId = ele.getAttribute("comment_id"),
             text = ele.textContent.trim().substring(0, 127).trim().split('：')[1];
@@ -34,14 +31,34 @@ const sleep = (ms) => {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log('Getting del data......')
             let rest = xhr.responseText
             console.log(rest)
-            console.log(typeof rest)
+            // console.log(typeof rest)
             const obj_r = JSON.parse(rest)
-            // let to_del = rest['td']
-            // console.log(typeof to_del)
             // console.log(to_del)
-            console.log(obj_r['td'])
+            let to_del = obj_r['td']
+            // console.log(typeof to_del)
+            // const tt = "4621646571244256"
+            let to_del_obj = JSON.parse(to_del)
+            // console.log(typeof JSON.parse(to_del))
+            console.log(to_del_obj)
+            // if (Object.values(to_del_obj).includes(tt)){
+            //     console.log('okokokokokoko')
+            // }else{
+            //     console.log('nononononono')
+            // }
+            let del_list = Object.values(to_del_obj);
+            Array.from(document.querySelectorAll("[node-type='root_comment']")).forEach(ele => {
+                let commentId = ele.getAttribute("comment_id");
+                   if(del_list.includes(commentId)){
+                        let text = ele.textContent.trim().substring(0, 127).trim().split('：')[1];
+                        console.log(text)
+                        ele.remove()
+                    }
+            })
+            console.log('delete complete');
+
         }
     };
     xhr.open('POST', 'http://127.0.0.1:3000/simple-cors')
