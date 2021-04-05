@@ -11,7 +11,11 @@
 
 ## 系统架构
 
+TODO
 
+## 爬虫&算法 逻辑
+
+详见[流水账][5]
 
 ## 调试&运行 方法
 
@@ -25,18 +29,20 @@
 
 + 根据`comments_filter.py`中的`import`进行各种粒度的调试
 
-## 效果
+## 运行效果
 
 ### B站
 
+TODO
+
 ### Youtube
 
-
+TODO
 
 
 
 [1]: https://weibo.com/5594216204/K956U4wBC?type=comment
 [2]: https://weibo.com/7272731818/K9wgdcrM3?type=comment
-[3]: ./frontEnd/READMR.md
-
-[4]: 
+[3]: https://github.com/magictomagic/diplomaProject/tree/main/frontEnd
+[4]: TODO
+[5]: https://github.com/magictomagic/magictomagic.github.io/blob/master/_posts/2021-02-02-%E6%AF%95%E8%AE%BE%E8%BF%9B%E7%A8%8B.md
