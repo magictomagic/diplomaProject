@@ -1,11 +1,9 @@
 import os
 import sys
-# loc = os.getcwd()
-loc = os.path.dirname(os.path.abspath(__file__)).split('/')[0: -1]
-loc = '/'.join(loc)
+loc = os.path.dirname(os.path.abspath(__file__))
+loc = os.path.dirname(loc)
 sys.path.append(loc)
-print(loc)
-# sys.path.append(r'/home/magic/Desktop/dp/diplomaProject/algorithm')
+# print(loc)
 # from algorithm.train.model_generator import *
 from algorithm.predict.prophet import *
 from algorithm.config import *

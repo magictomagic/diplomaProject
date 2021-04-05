@@ -21,12 +21,12 @@ class ScatterComments:
         self.dr_cluster = dr_cluster
         self.rs_cluster = rs_cluster
         self.heatage_cluster = heatage_cluster
-        loc = os.path.dirname(os.path.abspath(__file__)).split('/')[0: -1]
-        loc = '/'.join(loc)
-        self.part_model = joblib.load('/'.join([loc, 'part_model.m']))
-        self.role_model = joblib.load('/'.join([loc, 'role_model.m']))
-        self.dr_model = joblib.load('/'.join([loc, 'dr_model.m']))
-        self.rs_model = joblib.load('/'.join([loc, 'rs_model.m']))
+        loc = os.path.dirname(os.path.abspath(__file__))
+        loc = os.path.dirname(loc)
+        self.part_model = joblib.load(os.path.join(loc, 'part_model.m'))
+        self.role_model = joblib.load(os.path.join(loc, 'role_model.m'))
+        self.dr_model = joblib.load(os.path.join(loc, 'dr_model.m'))
+        self.rs_model = joblib.load(os.path.join(loc, 'rs_model.m'))
 
     def predict(self, vectorized_context):
         return self._predict_part(self._to_array(vectorized_context[:, 1])), self._predict_role(
