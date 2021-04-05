@@ -35,28 +35,22 @@ const sleep = (ms) => {
         data.forEach(ele => obj[ele[0].toString()] = ele[1]);
 
         let strdata = JSON.stringify(obj);
-        console.log(strdata);
+        // console.log(strdata);
 
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 console.log('Getting del data......')
                 let rest = xhr.responseText
-                console.log(rest)
+                // console.log(rest)
                 // console.log(typeof rest)
                 const obj_r = JSON.parse(rest)
                 // console.log(to_del)
                 let to_del = obj_r['td']
                 // console.log(typeof to_del)
-                // const tt = "4621646571244256"
                 let to_del_obj = JSON.parse(to_del)
                 // console.log(typeof JSON.parse(to_del))
                 console.log(to_del_obj)
-                // if (Object.values(to_del_obj).includes(tt)){
-                //     console.log('okokokokokoko')
-                // }else{
-                //     console.log('nononononono')
-                // }
                 let del_list = Object.values(to_del_obj);
                 Array.from(document.querySelectorAll("[node-type='root_comment']")).forEach(ele => {
                     let commentId = ele.getAttribute("comment_id");
@@ -73,8 +67,8 @@ const sleep = (ms) => {
         xhr.open('POST', 'http://127.0.0.1:3000/simple-cors')
         xhr.setRequestHeader("Content-type", "application/json")
         xhr.send(strdata)
-
-        if (document.querySelectorAll("[node-type='root_comment']").length - 5 < total_len) {
+        
+        while (document.querySelectorAll("[node-type='root_comment']").length <= total_len) {
             await sleep(500)
         }
 
