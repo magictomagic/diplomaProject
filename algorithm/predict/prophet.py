@@ -59,7 +59,7 @@ class CommentsFilter:
         self.predicted.append(self.to_predict[:, 0])
         self.jl = len(self.id_judge)
         if self.jl < 3:
-            print("发生甚么事了？")
+            print("too short!!!")
         self.flag_killer = [0] * self.jl
         # print(self.predicted)
         # print(self.id_judge)

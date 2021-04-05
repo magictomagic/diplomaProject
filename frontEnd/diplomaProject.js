@@ -42,30 +42,37 @@ const sleep = (ms) => {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 console.log('Getting del data......')
                 let rest = xhr.responseText
-                // console.log(rest)
-                // console.log(typeof rest)
+                console.log(rest)
+                console.log(typeof rest)
                 const obj_r = JSON.parse(rest)
                 // console.log(to_del)
                 let to_del = obj_r['td']
                 // console.log(typeof to_del)
-                let to_del_obj = JSON.parse(to_del)
-                // console.log(typeof JSON.parse(to_del))
-                console.log(to_del_obj)
-                let del_list = Object.values(to_del_obj);
-                Array.from(document.querySelectorAll("[node-type='root_comment']")).forEach(ele => {
-                    let commentId = ele.getAttribute("comment_id");
-                    if(del_list.includes(commentId)){
+                // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                // console.log(to_del)
+                if(to_del.length > 0){
+                    let to_del_obj = JSON.parse(to_del)
+                    // console.log(typeof JSON.parse(to_del))
+                    console.log(to_del_obj)
+                    let del_list = Object.values(to_del_obj);
+                    Array.from(document.querySelectorAll("[node-type='root_comment']")).forEach(ele => {
+                        let commentId = ele.getAttribute("comment_id");
+                        if(del_list.includes(commentId)){
                             let text = ele.textContent.trim().substring(0, 127).trim().split('：')[1];
                             console.log(text)
                             ele.remove()
                         }
-                })
-                console.log('delete complete');
-
+                    })
+                    console.log('delete complete');
+                }else{
+                    console.log('no delete')
+                }
+                
             }
         };
         xhr.open('POST', 'http://127.0.0.1:3000/simple-cors')
         xhr.setRequestHeader("Content-type", "application/json")
+        // console.log(strdata)
         xhr.send(strdata)
         
         while (document.querySelectorAll("[node-type='root_comment']").length <= total_len) {
